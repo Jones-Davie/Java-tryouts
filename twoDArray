@@ -1,0 +1,192 @@
+package hoofdstuk6;
+
+import java.util.*;
+
+public class twoDArray {
+	
+	public static void main (String[] args) {
+		
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("Lets check out the weather");
+		
+		String choice;
+		String choiceChecker;
+		
+		int weekNumber = 1;
+		
+		double[][] temperature = new double[weekNumber][7];
+		
+		boolean quit = false;
+		
+		// begin
+		
+		do {
+			
+			
+			
+			
+			String entryValue;
+//			int entryValueCheck = Integer.parseInt(entryValue);
+			
+			System.out.println("");
+			System.out.println("[1] Enter the number of weeks to record");
+			System.out.println("[2] Enter the temperatures for all weeks");
+			System.out.println("[3] Display all temperatures");
+			System.out.println("[4] Display chosen week");
+			System.out.println("[5] Display chosen day of chosen week");
+			System.out.println("[6] Exit program");
+			
+			choice = input.nextLine();
+//			choiceChecker = "6";
+			choice = checkForNumber(choice);
+			
+			int choiceCorrect = Integer.parseInt(choice); 
+			
+			while (choiceCorrect > 6 && choiceCorrect > 1) {
+				
+				System.out.println("That is not a valid number");
+				choice = input.nextLine();
+				checkForNumber(choice);
+				
+			}
+			
+			switch (choice) {
+			
+			case "1" 	: System.out.println("Enter the number of weeks to record");
+						entryValue = input.nextLine();
+						checkForNumber(entryValue);
+						weekNumber = Integer.parseInt(entryValue);
+						temperature = new double [weekNumber][7];
+						System.out.printf("The number of recorded week is set to %d\n",temperature.length);
+						break;
+						
+			case "2"	: System.out.println("Enter temperature for all weeks") ;
+						fillArray(temperature);
+						System.out.println("Entry succesfull");
+						break;
+						
+			case "3"	: System.out.printf("\n Displaying current recorded temperatures \n");
+						displayArray(temperature);
+						
+						break;
+			case "4"	: displayWeek(temperature);
+						break;
+						
+			case "5"	: displayDay(temperature);
+						break;
+			case "6"	:
+						break;
+			}
+			
+			
+		} while (quit == false);
+		
+
+	} 
+	
+	static String checkForNumber(String stringIn) {
+		
+		Scanner input = new Scanner(System.in);
+		try {
+			int checkInt = Integer.parseInt(stringIn);
+			
+		}
+		
+		catch(Exception e) {
+			
+			System.out.println("Please choose a number");
+			
+			stringIn = input.nextLine();
+						
+		}
+		
+		return stringIn;
+		
+	} // close String checkForNumber
+	
+	//Menu option 2, enter value for chosen week
+	
+	static void fillArray (double[][]arrayIn) {
+		
+		Scanner input = new Scanner(System.in);
+		
+		for (int week = 0; week < arrayIn.length; week ++) {
+			
+			int weekPrint = week + 1;
+			System.out.printf("Entering values for week %d\n", weekPrint);
+			
+			for (int day = 0; day < arrayIn[0].length; day++) {
+				
+				int dayPrint = day + 1;
+				System.out.printf("Enter a value for week %d day %d\n", weekPrint, dayPrint);
+				arrayIn[week][day] = input.nextDouble();
+			} //close loop 2
+		} // close loop 1
+		
+		
+
+	} // close menu option 2
+	
+	//menu option 3
+	
+	static void displayArray (double[][] arrayIn) {
+		
+		for (int week = 0; week < arrayIn.length; week++) {
+			
+			for (int day = 0; day < arrayIn[0].length; day++) {
+				
+
+				System.out.printf("Week %d day %d temperature %f\n", week + 1, day + 1, arrayIn[week][day]);
+			
+			} //close loop 2
+		} // close l
+		
+	} // close menu option 3
+	
+	//menu option 4 display chosen week
+	
+	static void displayWeek (double[][] arrayIn) {
+		
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("Choose a week te review");
+		
+		String entryValue = input.nextLine();
+		checkForNumber(entryValue);
+		int weekNumber = Integer.parseInt(entryValue) - 1;
+		
+		System.out.printf("\n The temperatures of week %d are\n", weekNumber);
+		
+		for (int i = 0; i < arrayIn[0].length; i ++ ) {
+			
+			System.out.printf("Day %d temperature %f\n", i+1, arrayIn[weekNumber][i]);
+						
+		}
+		
+	}	// close option 4
+	
+	static void displayDay (double[][] arrayIn) {
+		
+		Scanner input = new Scanner(System.in);
+		System.out.println("Please choose which day of the week you would like to review");
+		String entryValue = input.nextLine();
+		checkForNumber(entryValue);
+		int dayNumber = Integer.parseInt(entryValue) - 1;
+		
+		for (int week = 0; week < arrayIn.length; week++) {
+			for (int day = 0; day < arrayIn[0].length; day++) {
+				
+				if (day == dayNumber) {
+					System.out.printf("Week %d Day %d temperature %f\n", week+1, day+1, arrayIn[week][day]);
+				}
+				
+			}
+		}
+		
+	}
+	
+} // close class
+
+
+
